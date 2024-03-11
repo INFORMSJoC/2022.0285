@@ -1,1 +1,66 @@
-# 2022.0285
+[![INFORMS Journal on Computing Logo](https://INFORMSJoC.github.io/logos/INFORMS_Journal_on_Computing_Header.jpg)](https://pubsonline.informs.org/journal/ijoc)
+
+# A Fusion Pre-Trained Approach for Identifying the Clause of Sarcasm Remarks
+
+This archive is distributed in association with the [INFORMS Journal on
+Computing](https://pubsonline.informs.org/journal/ijoc) under the [MIT License](LICENSE).
+
+The software and data in this repository are a snapshot of the software and data
+that were used in the research reported on in the paper 
+[A Fusion Pre-Trained Approach for Identifying the Clause of Sarcasm Remarks](https://doi.org/10.1287/ijoc.2022.0285.cd) by Q. Li, D. Xu, H. Qian, L. Wang, M. Yuan and D. Zeng. 
+
+## Cite
+
+To cite the contents of this repository, please cite both the paper and this repo, using their respective DOIs.
+
+https://doi.org/10.1287/ijoc.2022.0285.cd.
+
+Below is the BibTex for citing this snapshot of the repository.
+
+```
+@article{A Fusion Pre-Trained Approach for Identifying the Clause of Sarcasm Remarks,
+  author =        {Q. Li, D. Xu, H. Qian, L. Wang, M. Yuan and D. Zeng},
+  publisher =     {INFORMS Journal on Computing},
+  title =         {{A Fusion Pre-Trained Approach for Identifying the Clause of Sarcasm Remarks}},
+  year =          {2024},
+  doi =           {10.1287/ijoc.2022.0285.cd},
+  url =           {https://github.com/INFORMSJoC/2022.0285},
+}  
+```
+
+## Description
+
+This repository provides data for the problem and code for the method. The main folders are 'data', 'src', and 'scripts'.
+
+'data': This folder includes reddit data and twitter data. 
+
+"src": This folder includes the code for training and testing.
+
+"scripts": This folder provides a running script.
+
+## Requirements
+
+You should install the following packages before you run our model.
+
+```
+python >= 3.8.13
+pytorch >= 1.8.0
+transformers >= 4.7.0
+huggingface-hub >= 0.0.8
+```
+
+## Usage
+
+You should download the pre-trained model [bert-base-uncased](https://huggingface.co/google-bert/bert-base-uncased) and put the files under ./models folder.
+
+Then the model can be trained using the [scripts](/scripts). 
+
+```
+cd scripts
+bash run.sh
+```
+
+## Results
+
+The [results](/results)  folder show the tables and figures reported in the paper. For more detail analysis, see Section 4.4 and Appendix.  
+
