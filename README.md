@@ -49,7 +49,7 @@ transformers >= 4.7.0
 huggingface-hub >= 0.0.8
 ```
 
-## Usage
+## Replicating
 
 You should download the pre-trained model [bert-base-uncased](https://huggingface.co/google-bert/bert-base-uncased) and put the files under ./models folder.
 
@@ -63,4 +63,5 @@ bash run.sh
 ## Results
 
 The [results](/results)  folder show the tables and figures reported in the paper. For more detail analysis, see Section 4.4 and Appendix.  
+
 
