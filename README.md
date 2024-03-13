@@ -82,7 +82,7 @@ python train_classifier_linear.py
 python avg.py
 ```
 
-For testing, this [script](test.sh) can be used to infer the results based on the trained model. To test the cross-subreddit and cross-platform data, the parameters `--data_path` and `--test_prefix` should be set to corresponding subreddit or platform name.
+For testing, this [script](./scripts/test.sh) can be used to infer the results based on the trained model. To test the cross-subreddit and cross-platform data, the parameters `--data_path` and `--test_prefix` should be set to corresponding subreddit or platform name.
 
 ```
 cd scripts
