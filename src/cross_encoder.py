@@ -41,11 +41,11 @@ class ClauseOutput(ModelOutput):
 class BertClause(BertPreTrainedModel):
     _keys_to_ignore_on_load_unexpected = [r"pooler"]
 
-    def __init__(self, config,co_hidden_size=768, co_num_attention_heads=12, co_intermediate_size=1536, clause_max_len=None, max_len=None):
+    def __init__(self, config,co_hidden_size=768, co_intermediate_size=1536, clause_max_len=None, max_len=None):
         super().__init__(config)
         config.co_hidden_size = co_hidden_size
-        config.co_num_attention_heads = co_num_attention_heads
         config.co_intermediate_size = co_intermediate_size
+        config.co_num_attention_heads = config.attention_head
         self.config = config
         self.clause_max_len = clause_max_len
         self.max_len = max_len

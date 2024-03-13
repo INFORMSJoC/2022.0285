@@ -11,6 +11,7 @@ class Config(object):
         self.max_epoch = args.max_epoch
         self.max_len = args.max_len
         self.clause_max_len = args.clause_max_len
+        self.attention_head = args.attention_head
         self.hidden_dropout_prob = 0.1
         self.weight_decay = 0.01
         self.adam_epsilon = 1e-6
