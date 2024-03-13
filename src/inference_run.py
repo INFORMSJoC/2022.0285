@@ -1,5 +1,5 @@
 import config
-from framework import Framework
+from inference import Framework
 import argparse
 import torch
 import os
@@ -32,8 +32,9 @@ parser.add_argument('--clause_max_len', type=int, default=64)
 parser.add_argument('--attention_head', type=int, default=12)
 parser.add_argument('--period', type=int, default=50)
 parser.add_argument('--debug', type=bool, default=False)
-parser.add_argument('--data_path', type=str, default='../data/reddit/split')
-parser.add_argument('--log_path', type=str, default='log')
+parser.add_argument('--data_path', type=str, default='../../data/split')
+parser.add_argument('--log_path', type=str, default='log-www')
+parser.add_argument('--checkpoint_path', type=str, default='log-www')
 parser.add_argument('--result_path', type=str, default='./result/')
 args = parser.parse_args()
 
@@ -43,7 +44,7 @@ if __name__ == '__main__':
     print(con.root)
     seed_everything(con.seed)
     con.log_dir = os.path.join(args.log_path, str(con.bert_lr) + str(con.lr))
-    con.checkpoint_dir = os.path.join(con.log_dir,"checkpoint")
+    con.checkpoint_dir = os.path.join(os.path.join(args.checkpoint_path, str(con.bert_lr) + str(con.lr)),"checkpoint")
     fw = Framework(con)
     torch.cuda.empty_cache()
     fw.train()
