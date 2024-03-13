@@ -151,7 +151,6 @@ class Framework(object):
                                 subreddit_idx=subreddit_idx,
                                 clause_labels=clause_labels)
                 clause_logits = outputs.clause_logits
-                # print(clause_logits.shape)
                 clause_preds = torch.argmax(F.softmax(clause_logits, dim=-1), dim=-1).detach().cpu().numpy().tolist()
                 clause_labels = clause_labels.detach().cpu().numpy().tolist()
                 for subreddit_id, clause_pred, clause_label in zip(subreddit_idx.detach().cpu().numpy().tolist(), clause_preds, clause_labels):
@@ -170,10 +169,7 @@ class Framework(object):
                                 annot_ids_0.add(id_)
                             if pred != label:
                                 flag = False
-                            # print(subreddit_id, pred, label)
-                            # print(type(subreddit_id), type(pred), type(label))
                             subreddit = self.id2subreddits[subreddit_id[0]]
-                            # print(subreddit)
                             subreddit_true_labels[subreddit].append(label)
                             subreddit_pred_labels[subreddit].append(pred)
                     if flag:
@@ -195,10 +191,6 @@ class Framework(object):
                     subreddit_precision[subreddit], subreddit_recall[subreddit], subreddit_f1[subreddit] = sent_metrics(set([i for i, pred in enumerate(subreddit_pred_labels[subreddit]) if pred == 1]), set([i for i, label in enumerate(subreddit_true_labels[subreddit]) if label == 1]))
                     self.logging("subreddit: {}".format(subreddit))
                     self.logging("precision: {:4.5f}, recall: {:4.5f}, f1: {:4.5f}".format(subreddit_precision[subreddit], subreddit_recall[subreddit], subreddit_f1[subreddit]))
-                    # print("subreddit: {}".format(subreddit))
-                    # print("precision: {:4.5f}, recall: {:4.5f}, f1: {:4.5f}".format(subreddit_precision[subreddit], subreddit_recall[subreddit], subreddit_f1[subreddit]))
-                    # self.logging(classification_report(subreddit_true_labels[subreddit], subreddit_pred_labels[subreddit]))
-                    # print(classification_report(subreddit_true_labels[subreddit], subreddit_pred_labels[subreddit]))
             self.logging("avg f1 {:4.5f}".format((sent_f1 + sent_f1_0) / 2))
             return doc_correct / doc_all, sent_precision, sent_recall, sent_f1, subreddit_precision, subreddit_recall, subreddit_f1
 
@@ -234,36 +226,17 @@ class Framework(object):
                                 sarcasm_idx=sarcasm_idx,
                                 subreddit_idx=subreddit_idx,
                                 clause_labels=clause_labels)
-            #     output_features = outputs.input_embeddings
-            #     clause_embeddings, con_features = output_features
-            #     batch_max_norm = 0
-            #     for i in range(clause_embeddings.shape[0]):
-            #         clause_embedding, con_feature = clause_embeddings[i], con_features[i]
-            #         # print(clause_embedding.shape, sarcasm_embedding.shape)
-            #         clause_batch_max_norm = max(clause_batch_max_norm,
-            #                                     torch.norm(clause_embedding, p=2, dim=-1).max().item())
-            #         con_feature_batch_max_norm = max(con_feature_batch_max_norm,
-            #                                          torch.norm(con_feature, p=2, dim=-1).max().item())
-            #         batch_max_norm = max(clause_batch_max_norm, con_feature_batch_max_norm)
-            #     # self.logging("clause batch max norm {:4.2f} sarcasm batch max norm {:4.2f} batch max norm {:4.2f}".format(clause_batch_max_norm, sarcasm_batch_max_norm, batch_max_norm))
-            #     max_norm = max(max_norm, batch_max_norm)
-            #     data = test_data_prefetcher.next()
-            # return max_norm
+
                 input_features, subreddit_features = outputs.input_embeddings
-                # print(input_features.shape, subreddit_features.shape)
                 clause_embeddings = input_features
                 subreddit_embeddings = subreddit_features
                 for i in range(clause_embeddings.shape[0]):
                     clause_embedding = clause_embeddings[i]
-                    # print(clause_embedding.shape, sarcasm_embedding.shape)
                     clause_batch_max_norm = max(clause_batch_max_norm, torch.norm(clause_embedding, p=2, dim=-1).max().item())
-                # self.logging("clause batch max norm {:4.2f} sarcasm batch max norm {:4.2f}".format(clause_batch_max_norm, sarcasm_batch_max_norm))
                 max_norm = max(max_norm, clause_batch_max_norm)
                 for i in range(subreddit_embeddings.shape[0]):
                     subreddit_embedding = subreddit_embeddings[i]
-                    # print(clause_embedding.shape, sarcasm_embedding.shape)
                     clause_batch_max_norm = max(clause_batch_max_norm, torch.norm(subreddit_embedding, p=2, dim=-1).max().item())
-                # self.logging("clause batch max norm {:4.2f} sarcasm batch max norm {:4.2f}".format(clause_batch_max_norm, sarcasm_batch_max_norm))
                 max_norm = max(max_norm, clause_batch_max_norm)
                 data = test_data_prefetcher.next()
             return max_norm
@@ -303,10 +276,8 @@ class Framework(object):
                 batch_max_norm = 0
                 for i in range(clause_embeddings.shape[0]):
                     clause_embedding = clause_embeddings[i]
-                    # print(clause_embedding.shape, sarcasm_embedding.shape)
                     clause_batch_max_norm = max(clause_batch_max_norm, torch.norm(clause_embedding, p=2, dim=-1).max().item())
                     batch_max_norm = max(clause_batch_max_norm, clause_batch_max_norm)
-                # self.logging("clause batch max norm {:4.2f} sarcasm batch max norm {:4.2f} batch max norm {:4.2f}".format(clause_batch_max_norm, sarcasm_batch_max_norm, batch_max_norm))
                 max_norm = max(max_norm, batch_max_norm)
                 data = test_data_prefetcher.next()
             return max_norm
