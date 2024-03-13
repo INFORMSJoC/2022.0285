@@ -21,7 +21,7 @@ Below is the BibTex for citing this snapshot of the repository.
 @article{A Fusion Pre-Trained Approach for Identifying the Clause of Sarcasm Remarks,
   author =        {Q. Li, D. Xu, H. Qian, L. Wang, M. Yuan and D. Zeng},
   publisher =     {INFORMS Journal on Computing},
-  title =         {{A Fusion Pre-Trained Approach for Identifying the Clause of Sarcasm Remarks}},
+  title =         {A Fusion Pre-Trained Approach for Identifying the Clause of Sarcasm Remarks},
   year =          {2024},
   doi =           {10.1287/ijoc.2022.0285.cd},
   url =           {https://github.com/INFORMSJoC/2022.0285},
@@ -30,17 +30,19 @@ Below is the BibTex for citing this snapshot of the repository.
 
 ## Description
 
-This repository provides data for the problem and code for the method. The main folders are 'data', 'src', and 'scripts'.
+This repository provides data for the problem and code for the method. The main folders are 'data', 'src', 'scripts', and 'results'.
 
-'data': This folder includes reddit data and twitter data. 
+'data': This folder includes reddit data and twitter data. The detailed description can be seen [README](./data/README.md).
 
 "src": This folder includes the code for training and testing.
 
 "scripts": This folder provides a running script.
 
-## Requirements
+"results": This folder provides the results in the paper.
 
-You should install the following packages before you run our model.
+## Building
+
+The following packages should be installed before you run our model.
 
 ```
 python >= 3.8.13
@@ -60,8 +62,47 @@ cd scripts
 bash run.sh
 ```
 
+This script will execute three Python programs.
+
+First, the data could be split into training set, validation set and testing set by five-fold.
+
+```
+python kfold_split.py
+```
+
+Then, the model can be trained by each training set. The file`train_classifier_linear.py`is the starting program for training. The file `framework.py` includes the main framework for training and evaluating the model. The model is in the file `cross_encoder.py`. 
+
+```
+python train_classifier_linear.py
+```
+
+ Finally, the average evaluation metric is calculated.
+
+```
+python avg.py
+```
+
+For testing, this [script](test.sh) can be used to infer the results based on the trained model.
+
+```
+cd scripts
+bash test.sh
+```
+
 ## Results
 
-The [results](/results)  folder show the tables and figures reported in the paper. For more detail analysis, see Section 4.4 and Appendix.  
+The [results](/results)  folder show the tables and figures reported in the paper. 
+
+[Table 3](./results/Table 3.png) shows the overall Precision, Recall and F1 of the proposed model. And [Appendix A](./results/Appendix A) is the corresponding results of each subreddit.
+
+[Table 4](./results/Table 4.png) is the Precision, Recall and F1 on cross-subreddit and cross-platform. 
+
+[Table 5](./results/Table 5.png) and [Appendix B](./results/Appendix B)  show the evaluation metric of the variant models. 
+
+[Figure 2](./results/Figure 2.png) shows the  F1 scores of different training data ratios.
+
+[Table 6](./results/Table 6.png)  and [Appendix C](./results/Appendix C) are results of different attention heads.
+
+For more detailed analysis, see Section 4.4 and Appendix.  
 
 
