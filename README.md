@@ -70,7 +70,7 @@ First, the data could be split into training set, validation set and testing set
 python kfold_split.py
 ```
 
-Then, the model can be trained by each training set. The file`train_classifier_linear.py`is the starting program for training. The file `framework.py` includes the main framework for training and evaluating the model. The model is in the file `cross_encoder.py`. 
+Then, the model can be trained by each training set. The file`train_classifier_linear.py`is the starting program for training. The file `framework.py` includes the main framework for training and evaluating the model. The model is in the file `cross_encoder.py`. The parameter `--test_prefix` can be set to different proportions of data to train the model on partial data. The parameter `--attention_head` can be used to control the number of heads of the fusion attention mechanism.
 
 ```
 python train_classifier_linear.py
@@ -82,7 +82,7 @@ python train_classifier_linear.py
 python avg.py
 ```
 
-For testing, this [script](test.sh) can be used to infer the results based on the trained model.
+For testing, this [script](test.sh) can be used to infer the results based on the trained model. To test the cross-subreddit and cross-platform data, the parameters `--data_path` and `--test_prefix` should be set to corresponding subreddit or platform name.
 
 ```
 cd scripts
@@ -93,15 +93,15 @@ bash test.sh
 
 The [results](/results)  folder show the tables and figures reported in the paper. 
 
-[Table 3](./results/Table 3.png) shows the overall Precision, Recall and F1 of the proposed model. And [Appendix A](./results/Appendix A) is the corresponding results of each subreddit.
+[Table 3](./results/Table_3.png) shows the overall Precision, Recall and F1 of the proposed model. And [Appendix A](./results/Appendix_A.png) is the corresponding results of each subreddit.
 
-[Table 4](./results/Table 4.png) is the Precision, Recall and F1 on cross-subreddit and cross-platform. 
+[Table 4](./results/Table_4.png) is the Precision, Recall and F1 on cross-subreddit and cross-platform. 
 
-[Table 5](./results/Table 5.png) and [Appendix B](./results/Appendix B)  show the evaluation metric of the variant models. 
+[Table 5](./results/Table_5.png) and [Appendix B](./results/Appendix_B.png)  show the evaluation metric of the variant models. 
 
-[Figure 2](./results/Figure 2.png) shows the  F1 scores of different training data ratios.
+[Figure 2](./results/Figure_2.png) shows the  F1 scores of different training data ratios.
 
-[Table 6](./results/Table 6.png)  and [Appendix C](./results/Appendix C) are results of different attention heads.
+[Table 6](./results/Table_6.png)  and [Appendix C](./results/Appendix_C.png) are results of different attention heads.
 
 For more detailed analysis, see Section 4.4 and Appendix.  
 
